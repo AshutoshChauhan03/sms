@@ -1,0 +1,30 @@
+* {
+  color: white;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.headerStyle {
+  height: 65px;
+  background-color: #124559;
+}
+
+.aStyle {
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 15px;
+  margin: 0px 20px 0 5px;
+  text-decoration: none;
+}
+
+.active {
+  color: #AEC3B0;
+  font-weight: bold;
+}
+
+// .styleIcon {
+//   padding-top: 10px;
+// }

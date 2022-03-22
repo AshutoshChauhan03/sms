@@ -1,0 +1,21 @@
+mat-card {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.212);
+  width: max-content;
+  height: max-content;
+}
+
+.cardStyle {
+  display: flex;
+  flex-direction: column;
+  padding: 25px 30px;
+}
+
+::ng-deep {
+  .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: #124559;
+  }
+  .mat-form-field.mat-focused .mat-form-field-label {
+    color: #124559;
+  }
+
+}

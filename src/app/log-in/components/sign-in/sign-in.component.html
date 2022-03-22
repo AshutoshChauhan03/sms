@@ -1,0 +1,83 @@
+<div class="defaultHeight">
+	<form #formRef="ngForm">
+		<mat-card class="cardStyle">
+			<mat-form-field appearance="outline">
+				<mat-label *ngIf="adminStatus">Admin ID</mat-label>
+				<mat-label *ngIf="!adminStatus">Student ID</mat-label>
+				<mat-icon *ngIf="adminStatus"
+					matSuffix>
+					person
+				</mat-icon>
+				<mat-icon *ngIf="!adminStatus"
+					matSuffix>
+					person_outline
+				</mat-icon>
+				<input #ref1="ngModel"
+					[(ngModel)]="user.id"
+					required
+					minlength="8"
+					name="id"
+					matInput
+					type="text">
+				<mat-hint *ngIf="adminStatus">Enter your admin id</mat-hint>
+				<mat-hint *ngIf="!adminStatus">
+					Enter your student id
+				</mat-hint>
+				<mat-error *ngIf="ref1.hasError('required')"
+					style="font-style: italic">
+					Required
+				</mat-error>
+				<mat-error *ngIf="ref1.hasError('minlength')"
+					style="font-style: italic">
+					Invalid id
+				</mat-error>
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Password</mat-label>
+				<input #ref2="ngModel"
+					[(ngModel)]="user.password"
+					[(ngModel)]="user.password"
+					[type]="showPassword? 'text' : 'password'"
+					required
+					minlength="4"
+					name="password"
+					matInput>
+
+				<mat-icon *ngIf="showPassword else dont"
+					(click)="showPass()"
+					matSuffix>
+					remove_red_eye
+				</mat-icon>
+				<ng-template #dont>
+					<mat-icon (click)="showPass()"
+						matSuffix>
+						visibility_off
+					</mat-icon>
+				</ng-template>
+
+				<mat-error *ngIf="ref2.hasError('required')"
+					style="font-style: italic">
+					Required
+				</mat-error>
+				<mat-error *ngIf="ref2.hasError('minlength')"
+					style="font-style: italic">
+					Min length is 4
+				</mat-error>
+			</mat-form-field>
+
+			<button (click)="submitUserDetails(formRef)"
+				mat-raised-button
+				color="accent">
+				Sign In
+			</button>
+		</mat-card>
+	</form>
+	<p style="position:absolute; margin-top: 300px;">
+		Forgot password ?
+		<a [routerLink]="['/forgotpassword']"
+			style="color: seagreen; text-decoration: none;">
+			Click here
+		</a>
+	</p>
+</div>
