@@ -27,4 +27,11 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  sendOTP(reqbody: any) {
+    return this._http.post(this.url+ "forgotpassword", reqbody)    
+  }
+
+  resetPassword(reqbody: any, id:any) {
+    return this._http.patch(`${this.url}resetpassword/id/${id}`, reqbody)    
+  }
 }
