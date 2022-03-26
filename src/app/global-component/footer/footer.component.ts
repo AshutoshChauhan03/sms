@@ -11,7 +11,7 @@ export class FooterComponent implements OnInit {
   @Input()
   color = "#124559";
   @Input()
-  title = "@ Sample Public School";
+  title = "@ Sample Public University";
   
   @ViewChild("footer")
   footer!: ElementRef;  
