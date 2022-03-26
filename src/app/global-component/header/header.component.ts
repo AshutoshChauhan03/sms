@@ -35,6 +35,9 @@ export class HeaderComponent implements OnInit {
       if(this.loggedIn)
         this.loggedInUserName = localStorage.getItem('user');
     })
+
+    if(window.innerWidth < 750)
+      this.showHam = true;
   }
 
   ngOnInit(): void {
@@ -46,7 +49,6 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleNavbar(){this.navbarOpened=!this.navbarOpened}
-  
 
   toggleActive() {
     this.adminActive = !this.adminActive;
@@ -64,10 +66,13 @@ export class HeaderComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    if(event.target.innerWidth < 750)
+    if(event.target.innerWidth < 750) {
       this.showHam = true;
-    else
+    }
+    else {
+      this.navbarOpened=false;
       this.showHam = false;
+    }
   }
 }
 

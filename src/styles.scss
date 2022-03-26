@@ -1,18 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .my-custom-snackbar {
-    margin: 0 !important;
-    position: relative;
-    top: -70px;
+  margin: 0 !important;
+  position: relative;
+  top: -70px;
 }
 
 .defaultHeight {
-    min-height: calc(100vh - 45px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  min-height: calc(100vh - 110px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
