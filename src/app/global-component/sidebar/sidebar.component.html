@@ -1,1 +1,12 @@
-<div></div>
+<div class="sidebar">
+  <ul *ngIf="!adminStatus">
+    <li [routerLink]="['/home']" routerLinkActive="active">Home</li>
+    <li [routerLink]="['/academics']" routerLinkActive="active">Academics</li>
+    <li [routerLink]="['/leave']" routerLinkActive="active">Leave</li>
+  </ul>
+  <ul *ngIf="adminStatus">
+    <li [routerLink]="['/home']" routerLinkActive="active">Home</li>
+    <li [routerLink]="['/students']" routerLinkActive="active">Students</li>
+    <li [routerLink]="['/teachers']" routerLinkActive="active">Teachers</li>
+  </ul>
+</div>

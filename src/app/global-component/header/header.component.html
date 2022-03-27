@@ -1,7 +1,7 @@
 <main>
   <mat-toolbar #header class="headerStyle">
     <mat-toolbar-row>
-      <span style="margin-left: 5px; font-size: 25px">University Portal</span>
+      <span style="margin-left: 5px; font-size: 23px">University Portal</span>
       <span class="spacer"></span>
 
       <div fxLayout="row" fxLayoutAlign="center center" *ngIf="!showHam">
@@ -33,14 +33,9 @@
           >Student</a
         >
 
-        <a
-          *ngIf="loggedIn"
-          [routerLink]="['details']"
-          routerLinkActive="active"
-          class="aStyle"
-          (click)="toggleActive()"
-          >{{ loggedInUserName.split("@")[0] | titlecase }}</a
-        >
+        <a *ngIf="loggedIn" class="aStyle" (click)="toggleActive()">{{
+          loggedInUserName.split("@")[0] | titlecase
+        }}</a>
         <mat-icon *ngIf="loggedIn" class="styleIcon">logout</mat-icon>
         <a *ngIf="loggedIn" class="aStyle" (click)="logout()">Logout</a>
       </div>

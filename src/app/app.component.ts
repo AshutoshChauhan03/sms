@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from './log-in/auth.service';
+import { GlobalService } from './services/global.service';
 
 @Component({
   selector: 'app-root',
@@ -7,13 +8,15 @@ import { AuthService } from './log-in/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'sms';
-
-  constructor(private _auth: AuthService) {
-    
-  }
 
   adminActive: boolean = false;
+  loggedIn = false;
+
+  constructor(private _global: GlobalService) {
+    this._global.loggedIn.subscribe((flag)=> {
+      this.loggedIn = flag;
+    });
+  }
 
   activeSwitch(key: boolean) {
     this.adminActive=key;

@@ -110,8 +110,6 @@ router.post("/forgotpassword", async (req, res) => {
         expiresIn: "10m",
       });
 
-      // await UserModel.findOneAndUpdate({ id });
-
       const resetLink = `http://localhost:${process.env.PORT}/auth/resetpassword/${id}/${otp}`;
 
       // send this resetLink to user email address
@@ -166,6 +164,15 @@ router.patch("/resetpassword/id/:id", async (req, res) => {
   } else {
     return res.status(200).send({ msg: "User doesn't exists" });
   }
+});
+
+// return adminstatus of particular user
+router.get("/adminstatus", verifyToken, async (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+  const payload = await jwt.verify(token, process.env.SECRET_KEY_ON_SERVER);
+  const role = await UserModel.findOne({ id: payload.id });
+  if (role.adminStatus) return res.send({ msg: true });
+  else return res.send({ msg: false });
 });
 
 module.exports = router;

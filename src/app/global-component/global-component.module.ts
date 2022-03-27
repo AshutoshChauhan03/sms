@@ -8,14 +8,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AppRoutingModule } from '../app-routing.module';
-import { DetailsComponent } from './details/details.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { HomeComponent } from './home/home.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 const materialModules = [
   MatToolbarModule,
   MatIconModule,
   MatButtonModule,
-  FlexLayoutModule
+  FlexLayoutModule,
+  MatSidenavModule
 ]
 
 @NgModule({
@@ -23,8 +25,8 @@ const materialModules = [
     HeaderComponent,
     FooterComponent,
     PageNotFoundComponent,
-    DetailsComponent,
-    SidebarComponent
+    SidebarComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ const materialModules = [
   exports: [
     HeaderComponent,
     FooterComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    SidebarComponent
   ]
 })
 export class GlobalComponentModule { }
