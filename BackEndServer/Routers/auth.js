@@ -57,7 +57,7 @@ router.post("/signin", async (req, res) => {
         // creating jwt token
         let payload = { id: user.id };
         let token = jwt.sign(payload, process.env.SECRET_KEY_ON_SERVER, {
-          expiresIn: "1h",
+          expiresIn: "1d",
         });
         return res.status(200).send({ token });
       }
@@ -65,9 +65,9 @@ router.post("/signin", async (req, res) => {
   }
 });
 
-// handling register
+// handling register user
 router.post("/register", async (req, res) => {
-  // destructing request params
+  // destructing request body
   const { id, password, adminStatus, phoneNumber } = req.body;
 
   // check if user exists
@@ -83,7 +83,6 @@ router.post("/register", async (req, res) => {
     password: encryptedPass,
     adminStatus,
     phoneNumber,
-    resetLink: "null",
     otpStatus: false,
   });
 
@@ -92,7 +91,7 @@ router.post("/register", async (req, res) => {
     else {
       let payload = { id: registeredUser.id };
       let token = jwt.sign(payload, process.env.SECRET_KEY_ON_SERVER, {
-        expiresIn: "1h",
+        expiresIn: "1d",
       });
       return res.status(200).send({ token });
     }
@@ -100,8 +99,6 @@ router.post("/register", async (req, res) => {
 });
 
 // RESET PASSWORD
-let resetDetails = [];
-let resetVerificationStatus = { id: "dummy", flag: false };
 // handling forgot password otp sent
 router.post("/forgotpassword", async (req, res) => {
   const { id, phoneNumber } = req.body;
@@ -113,7 +110,7 @@ router.post("/forgotpassword", async (req, res) => {
         expiresIn: "10m",
       });
 
-      await UserModel.findOneAndUpdate({ id });
+      // await UserModel.findOneAndUpdate({ id });
 
       const resetLink = `http://localhost:${process.env.PORT}/auth/resetpassword/${id}/${otp}`;
 
@@ -170,4 +167,5 @@ router.patch("/resetpassword/id/:id", async (req, res) => {
     return res.status(200).send({ msg: "User doesn't exists" });
   }
 });
+
 module.exports = router;

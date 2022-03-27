@@ -1,6 +1,5 @@
 // env import
 require("dotenv").config();
-
 // mongoose ODM
 const mongoose = require("mongoose");
 

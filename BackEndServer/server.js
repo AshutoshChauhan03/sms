@@ -14,7 +14,7 @@ app.use(cors());
 
 // default homepage
 app.get("/", (req, res) => {
-  return res.send("<<<        EXPRESS SERVER UP       >>>");
+  return res.send("<<<--------EXPRESS SERVER UP-------->>>");
 });
 
 // All auth routes
@@ -22,5 +22,5 @@ app.use("/auth", authRouter);
 
 // express app listen
 app.listen(process.env.PORT, () => {
-  console.log("<<<        EXPRESS SERVER UP       >>>");
+  console.log("<<<--------EXPRESS SERVER UP-------->>>");
 });
