@@ -37,7 +37,7 @@ router.post("/session", verifyToken, (req, res) => {
 
 // handling signin
 router.post("/signin", async (req, res) => {
-  // destructing request params
+  // destructing request body
   const { id, password, adminStatus } = req.body;
 
   // check if user exists

@@ -7,6 +7,7 @@ const cors = require("cors");
 
 // routers
 const authRouter = require("./Routers/auth");
+const studentRouter = require("./Routers/student");
 
 // express app & configs
 const app = express();
@@ -19,6 +20,9 @@ app.get("/", (req, res) => {
 
 // All auth routes
 app.use("/auth", authRouter);
+
+// All student routes
+app.use("/students", studentRouter);
 
 // express app listen
 app.listen(process.env.PORT, () => {
