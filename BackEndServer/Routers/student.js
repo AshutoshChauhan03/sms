@@ -43,47 +43,9 @@ router.post("/details/:id", verifyTokenPermissions, async (req, res) => {
   const response = await UserModel.findOne({ id: temp }).exec();
   if (response) return res.status(200).send({ msg: "Student already exists" });
 
-  const {
-    studentId,
-    collegeId,
-    email,
-    phone,
-    fatherName,
-    motherName,
-    dob,
-    course,
-    branch,
-    batch,
-    section,
-    rollNo,
-    enrollRollNo,
-    universityRollNo,
-    highSchoolPercentage,
-    intermediatePercentage,
-    enrollmentDate,
-    address,
-  } = req.body;
+  const studentBody = req.body;
 
-  let newDetails = new DetailsModel({
-    studentId,
-    collegeId,
-    email,
-    phone,
-    fatherName,
-    motherName,
-    dob,
-    course,
-    branch,
-    batch,
-    section,
-    rollNo,
-    enrollRollNo,
-    universityRollNo,
-    highSchoolPercentage,
-    intermediatePercentage,
-    enrollmentDate,
-    address,
-  });
+  let newDetails = new DetailsModel(studentBody);
   newDetails.save((err, registeredDetails) => {
     if (err) return res.status(200).send(err);
     else return res.status(200).send({ msg: "Added Successfully !" });

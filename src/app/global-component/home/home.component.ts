@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  studentDetails: any = {};
+
+  constructor(private _http: HttpClient) { 
+    this._http.get("http://localhost:3000/students/details/"+localStorage.getItem('user')).subscribe(data => {
+      this.studentDetails=data; 
+      console.log(data);
+           
+    })
+  }
 
   ngOnInit(): void {
   }
