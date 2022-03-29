@@ -66,7 +66,8 @@ export class HeaderComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    if(event.target.innerWidth < 750) {
+    this._globalService.screenWidth.next(event.target.innerWidth);
+    if(event.target.innerWidth < 800) {
       this.showHam = true;
     }
     else {

@@ -4,14 +4,31 @@
   <div>
     <div fxLayout>
       <app-sidebar
-        *ngIf="loggedIn"
+        *ngIf="loggedIn && expanded"
         fxFlex="14"
         class="defaultHeight"
+      ></app-sidebar>
+      <app-sidebar
+        *ngIf="loggedIn && !expanded && showExpanded"
+        class="changedSidebar"
       ></app-sidebar>
       <div *ngIf="!loggedIn" fxFlex="100" class="home" class="defaultHeight">
         <router-outlet></router-outlet>
       </div>
-      <div *ngIf="loggedIn" fxFlex="86" class="home" class="defaultHeight">
+      <div
+        *ngIf="loggedIn && expanded"
+        fxFlex="86"
+        class="home"
+        class="default"
+      >
+        <router-outlet></router-outlet>
+      </div>
+      <div
+        *ngIf="loggedIn && !expanded"
+        fxFlex="100"
+        class="home"
+        class="default"
+      >
         <router-outlet></router-outlet>
       </div>
     </div>

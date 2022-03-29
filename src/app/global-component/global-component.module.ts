@@ -11,13 +11,15 @@ import { AppRoutingModule } from '../app-routing.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HomeComponent } from './home/home.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatCardModule} from '@angular/material/card';
 
 const materialModules = [
   MatToolbarModule,
   MatIconModule,
   MatButtonModule,
   FlexLayoutModule,
-  MatSidenavModule
+  MatSidenavModule,
+  MatCardModule
 ]
 
 @NgModule({

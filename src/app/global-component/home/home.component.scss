@@ -1,3 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+}
 .active {
   color: #a15c5c;
+}
+.home {
+  height: 100%;
+}
+.head {
+  margin-top: 40px;
+}
+.head img {
+  margin-left: 5vw;
+}
+.head div {
+  margin-left: 20px;
+}
+.head div h1 {
+  margin: 0;
+}
+
+.general {
+  padding: 25px;
+  height: fit-content;
+}
+.general .container {
+  margin: 0 0 0 3vw;
+}
+.general .container mat-card {
+  padding: 10px 40px 10px 30px;
+  width: fit-content;
+}
+.general .container mat-card-title {
+  padding: 20px 0 30px;
+}
+
+.grid {
+  display: grid;
+  column-gap: 50px;
+  row-gap: 2px;
+  grid-template-columns: 1fr 1fr;
+}
+.grid div {
+  display: flex;
 }

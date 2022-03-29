@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.default {
+  min-height: calc(100vh - 110px);
+}
+.changedSidebar {
+  position: absolute;
+  width: 100vw;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
