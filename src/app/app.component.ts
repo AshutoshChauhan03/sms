@@ -19,7 +19,7 @@ export class AppComponent {
       this.loggedIn = flag;
     });
     this._global.screenWidth.subscribe((data)=> {
-      if(data < 800)
+      if(data < 900)
         this.expanded = false;
       else
         this.expanded = true;

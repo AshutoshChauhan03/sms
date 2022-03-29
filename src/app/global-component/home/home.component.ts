@@ -13,8 +13,6 @@ export class HomeComponent implements OnInit {
   constructor(private _http: HttpClient) { 
     this._http.get("http://localhost:3000/students/details/"+localStorage.getItem('user')).subscribe(data => {
       this.studentDetails=data; 
-      console.log(data);
-           
     })
   }
 

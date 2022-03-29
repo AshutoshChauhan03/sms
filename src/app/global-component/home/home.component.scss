@@ -40,7 +40,7 @@
   display: grid;
   column-gap: 50px;
   row-gap: 2px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
 }
 .grid div {
   display: flex;
