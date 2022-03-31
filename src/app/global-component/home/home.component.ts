@@ -10,9 +10,9 @@ export class HomeComponent implements OnInit {
 
   studentDetails: any = {};
 
-  constructor(private _http: HttpClient) { 
-    this._http.get("http://localhost:3000/students/details/"+localStorage.getItem('user')).subscribe(data => {
-      this.studentDetails=data; 
+  constructor(private _http: HttpClient) {
+    this._http.get("http://localhost:3000/students/details/" + localStorage.getItem('user')).subscribe(data => {
+      this.studentDetails = data;
     })
   }
 
