@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { AuthService } from './log-in/auth.service';
+import { Component, HostListener } from '@angular/core';
 import { GlobalService } from './services/global.service';
 
 @Component({

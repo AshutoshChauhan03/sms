@@ -43,7 +43,7 @@ async function sendEmail(id, resetLink) {
     const result = await transport.sendMail(mailOptions);
     return result;
   } catch (error) {
-    return error;
+    return "err";
   }
 }
 

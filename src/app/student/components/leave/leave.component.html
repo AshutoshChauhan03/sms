@@ -1,1 +1,50 @@
-<p>leave works !</p>
+<div class="leave">
+  <h1>Apply For Leave</h1>
+  <mat-stepper [linear]="true" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Reason of leave</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Enter in brief</mat-label>
+          <input matInput formControlName="firstCtrl" required />
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" label="Select Duration">
+      <form [formGroup]="secondFormGroup">
+        <mat-form-field appearance="fill">
+          <mat-label>Enter start date</mat-label>
+          <input
+            matInput
+            formControlName="secondCtrlOne"
+            type="date"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field [style.marginLeft]="'10px'" appearance="fill">
+          <mat-label>Enter end date</mat-label>
+          <input
+            matInput
+            formControlName="secondCtrlTwo"
+            type="date"
+            required
+          />
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>Your application is submitted successfully !</p>
+      <div>
+        <button mat-button (click)="stepper.reset()">Apply New</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+</div>

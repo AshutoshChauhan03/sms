@@ -25,12 +25,10 @@
   padding: 25px;
   height: fit-content;
 }
-.general .container {
-  margin: 0 0 0 3vw;
-}
+
 .general .container mat-card {
   padding: 10px 40px 10px 30px;
-  width: fit-content;
+  width: 100%;
 }
 .general .container mat-card-title {
   padding: 20px 0 30px;
@@ -40,7 +38,6 @@
   display: grid;
   column-gap: 50px;
   row-gap: 2px;
-  grid-template-columns: repeat(2, 1fr);
 }
 .grid div {
   display: flex;

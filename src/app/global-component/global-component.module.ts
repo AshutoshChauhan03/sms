@@ -9,7 +9,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { HomeComponent } from './home/home.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatCardModule} from '@angular/material/card';
 
@@ -28,7 +27,6 @@ const materialModules = [
     FooterComponent,
     PageNotFoundComponent,
     SidebarComponent,
-    HomeComponent
   ],
   imports: [
     CommonModule,

@@ -1,15 +1,15 @@
 const mongoose = require("mongoose");
 
 const detailsSchema = new mongoose.Schema({
-  studentName: {
+  student_Name: {
     type: String,
     required: true,
   },
-  studentId: {
+  student_Id: {
     type: String,
     required: true,
   },
-  collegeId: {
+  college_Id: {
     type: String,
     required: true,
   },
@@ -21,11 +21,11 @@ const detailsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  fatherName: {
+  father_Name: {
     type: String,
     required: true,
   },
-  motherName: {
+  mother_Name: {
     type: String,
     required: true,
   },
@@ -49,27 +49,27 @@ const detailsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  rollNo: {
+  roll_No: {
     type: String,
     required: true,
   },
-  enrollRollNo: {
+  enrollment_No: {
     type: String,
     required: true,
   },
-  universityRollNo: {
+  university_Roll_No: {
     type: String,
     required: true,
   },
-  highSchoolPercentage: {
+  highSchool_Percentage: {
     type: String,
     required: true,
   },
-  intermediatePercentage: {
+  intermediate_Percentage: {
     type: String,
     required: true,
   },
-  enrollmentDate: {
+  enrollment_Date: {
     type: String,
     required: true,
   },

@@ -1,7 +1,12 @@
 <main>
-  <app-header (active)="activeSwitch($event)"></app-header>
+  <app-header
+    [style.position]="'fixed'"
+    [style.zIndex]="'100'"
+    [style.width]="'100%'"
+    (active)="activeSwitch($event)"
+  ></app-header>
 
-  <div>
+  <div [style.paddingTop]="'65px'">
     <div fxLayout>
       <app-sidebar
         *ngIf="loggedIn && expanded"

@@ -14,7 +14,6 @@ import { AppRoutingModule } from '../app-routing.module';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { GlobalComponentModule } from '../global-component/global-component.module';
 import {MatStepperModule} from '@angular/material/stepper';
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 @NgModule({
   declarations: [

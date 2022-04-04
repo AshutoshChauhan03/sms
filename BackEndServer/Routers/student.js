@@ -8,6 +8,7 @@ router.use(bodyParser.json());
 
 const DetailsModel = require("../Schema/details");
 const UserModel = require("../Schema/user");
+const AcademicsModel = require("../Schema/academics");
 
 const verifyTokenPermissions = async (req, res, next) => {
   const { id } = req.params;
@@ -54,7 +55,7 @@ router.post("/details/:id", verifyTokenPermissions, async (req, res) => {
 
 router.get("/details/:studentId", async (req, res) => {
   const { studentId } = req.params;
-  const student = await DetailsModel.findOne({ studentId }).exec();
+  const student = await DetailsModel.findOne({ student_Id: studentId }).exec();
   if (student) return res.status(200).send(student);
   else return res.status(200).send({ msg: "Student doesn't exists" });
 });
@@ -114,6 +115,24 @@ router.delete("/details/:id", verifyTokenPermissions, async (req, res) => {
       return res.send({ msg: "Deletion Error" });
     } else return res.status(200).send({ msg: "Deleted Successfully" });
   });
+});
+
+const verifyToken = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization.split(" ")[1];
+    const payload = await jwt.verify(token, process.env.SECRET_KEY_ON_SERVER);
+    console.log(payload);
+    if (payload.id === req.params.id) next();
+    else return res.send({ err: "Unauthorized Access" });
+  } catch (err) {
+    return res.send({ err: "Unauthorized Access" });
+  }
+};
+
+router.post("/academics/:id", verifyToken, async (req, res) => {
+  const academic = new AcademicsModel(req.body);
+  academic.save();
+  return res.send("Successful");
 });
 
 module.exports = router;

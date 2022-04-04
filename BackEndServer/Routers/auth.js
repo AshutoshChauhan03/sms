@@ -114,7 +114,8 @@ router.post("/forgotpassword", async (req, res) => {
 
       // send this resetLink to user email address
       sendEmail(id, resetLink).then((data) => {
-        console.log(`Reset Link sent to email --> ${id}...`);
+        if (data == "err") console.log("Google API Error");
+        else console.log(`Reset Link sent to email --> ${id}`);
       });
 
       return res

@@ -33,7 +33,12 @@ export class SignInComponent implements OnInit {
       this._auth.verifyToken(token).subscribe((data) => {
         if(Object.values(data)[0] == "true") {
           this._globalService.loggedIn.next(true);
-          route.navigate(['/home'])
+          this._globalService.adminStatus.subscribe(flag => {
+            if(flag)
+              route.navigate(['/college'])
+            else
+              route.navigate(['/home'])
+          })
         }
       });
     }
@@ -51,7 +56,10 @@ export class SignInComponent implements OnInit {
             if (Object.keys(data)[0] == "token") {
               localStorage.setItem("token", Object.values(data)[0])
               localStorage.setItem("user", this.user.id)
-              this.route.navigate(['/home'])
+              if(this.user.adminStatus)
+                this.route.navigate(['/college'])
+              else
+                this.route.navigate(['/home'])
               this._globalService.loggedIn.next(true)
               this.snackBar.open("Logged In")
             }
