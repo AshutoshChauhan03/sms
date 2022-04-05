@@ -10,6 +10,8 @@ export class HomeComponent implements OnInit {
 
 studentDetails: any = [[]];
 sm: boolean = false;
+name: String = "";
+collegeId: String = "";
 
   constructor(private _http: HttpClient) {
     
@@ -22,9 +24,13 @@ sm: boolean = false;
       this.studentDetails = temp.filter((data, index)=> {
         if(index!=0 && index!=20)
           return data;
+        
         return;
       });
       
+      this.name = this.studentDetails[0][1];
+      this.collegeId = this.studentDetails[2][1];
+
     })
   }
 

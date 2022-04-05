@@ -16,6 +16,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatTableModule} from '@angular/material/table';
 import { HomeComponent } from './components/home/home.component';
 
+import { 
+	IgxDataChartCoreModule,
+	IgxDataChartVerticalCategoryModule,
+	IgxLegendModule,
+	IgxDataChartInteractivityModule
+ } from "igniteui-angular-charts";
+ 
 const materialModule = [
   MatStepperModule,
   MatTableModule
@@ -41,7 +48,11 @@ const materialModule = [
     AppRoutingModule,
     MatStepperModule,
     ReactiveFormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    IgxDataChartCoreModule,
+	  IgxDataChartVerticalCategoryModule,
+	  IgxLegendModule,
+	  IgxDataChartInteractivityModule
   ],
   exports: [
   ]

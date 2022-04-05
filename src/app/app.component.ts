@@ -10,7 +10,7 @@ export class AppComponent {
 
   adminActive: boolean = false;
   loggedIn = false;
-  expanded=false;
+  expanded=true;
   showExpanded=false;
 
   constructor(private _global: GlobalService) {
