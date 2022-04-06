@@ -3,16 +3,24 @@
     <img
       [style.height]="'100px'"
       [style.width]="'100px'"
-      src="../../../assets/user.png"
-      alt=""
+      [style.borderRadius]="'50px'"
+      src="https://alrigh.com/wp-content/uploads/2020/06/10-Midoriya-Izuku-profile-picture-1024x1018.jpg"
+      alt="../../../assets/user.png"
     />
-    <div fxLayout="column" fxLayoutAlign="center start">
+    <div class="info" fxLayout="column" fxLayoutAlign="center start">
       <h1>{{ name }}</h1>
-      <h4>{{ collegeId }}</h4>
+      <div fxLayout>
+        <mat-icon [style.fontSize]="'17px'">email</mat-icon>
+        <h5>{{ collegeId }}</h5>
+      </div>
     </div>
   </div>
   <div class="general">
-    <div class="container" fxLayout="row" fxLayoutAlign="center center">
+    <div
+      class="container"
+      fxLayout="row wrap"
+      fxLayoutAlign="space-around start"
+    >
       <mat-card style="box-shadow: 0px 0px 5px rgb(155, 151, 151)">
         <mat-card-title>General Details</mat-card-title>
         <mat-card-content>
@@ -24,13 +32,34 @@
           >
             <div *ngFor="let item of studentDetails">
               <li fxLayout>
-                <h3>{{ item[0] | titlecase }} :</h3>
-                <h3>{{ item[1] }}</h3>
+                <h3 [style.minWidth]="'fit-content'">
+                  {{ item[0] | titlecase }} :
+                </h3>
+                <h3 [style.maxWidth]="'75%'">{{ item[1] }}</h3>
               </li>
             </div>
           </div>
         </mat-card-content>
       </mat-card>
+      <div
+        class="bottom"
+        fxLayout="row wrap"
+        fxLayoutAlign="space-between center"
+        fxFlex="auto"
+        [style.padding]="'50px 0'"
+      >
+        <mat-card
+          [style.margin]="'15px 0'"
+          [style.width]="'225px'"
+          *ngFor="let card of cards"
+        >
+          <p>{{ card.head }}</p>
+          <mat-card-content fxLayout fxLayoutAlign="space-between">
+            <mat-icon>{{ card.icon }}</mat-icon>
+            <p>{{ card.value }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
     </div>
   </div>
 </div>

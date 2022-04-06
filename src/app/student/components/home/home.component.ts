@@ -13,6 +13,29 @@ sm: boolean = false;
 name: String = "";
 collegeId: String = "";
 
+cards = [
+  {
+    head: 'Total Attendance Percent',
+    icon: 'how_to_vote',
+    value: '60 %'
+  },
+  {
+    head: 'Dues / Paid / Balance to pay',
+    icon: 'attach_money',
+    value: '258896 /258896 /0'
+  },
+  {
+    head: 'Company Visited/Placed Student',
+    icon: 'location_city',
+    value: '0/0'
+  },
+  {
+    head: 'Total Carry/CGPA',
+    icon: 'library_books',
+    value: '0/8.45'
+  },
+]
+
   constructor(private _http: HttpClient) {
     
   }
@@ -22,7 +45,7 @@ collegeId: String = "";
       let temp = Object.entries(data);
       
       this.studentDetails = temp.filter((data, index)=> {
-        if(index!=0 && index!=20)
+        if(index!=0 && index!=21)
           return data;
         
         return;

@@ -48,6 +48,13 @@ export class HeaderComponent implements OnInit {
     this.header._elementRef.nativeElement.style.height = `${this.height}px`;
   }
 
+  homeNavigate() {
+    if(this.adminActive)
+      this.router.navigate(['/college'])
+    else
+      this.router.navigate(['/home'])
+  }
+
   toggleNavbar(){this.navbarOpened=!this.navbarOpened}
 
   toggleActive() {

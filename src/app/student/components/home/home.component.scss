@@ -14,7 +14,7 @@
 .head img {
   margin-left: 5vw;
 }
-.head div {
+.head .info {
   margin-left: 20px;
 }
 .head div h1 {
@@ -22,7 +22,7 @@
 }
 
 .general {
-  padding: 25px;
+  padding: 25px 25px 0px 25px;
   height: fit-content;
 }
 
@@ -45,4 +45,8 @@
 
 h3 {
   margin-left: 10px;
+}
+
+h5 {
+  margin: 0;
 }

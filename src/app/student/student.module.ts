@@ -15,6 +15,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatTableModule} from '@angular/material/table';
 import { HomeComponent } from './components/home/home.component';
+import {MatSelectModule} from '@angular/material/select';
 
 import { 
 	IgxDataChartCoreModule,
@@ -25,7 +26,8 @@ import {
  
 const materialModule = [
   MatStepperModule,
-  MatTableModule
+  MatTableModule,
+  MatSelectModule
 ]
 
 @NgModule({

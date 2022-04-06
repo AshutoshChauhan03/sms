@@ -5,6 +5,10 @@ const detailsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  semester: {
+    type: String,
+    required: true,
+  },
   student_Id: {
     type: String,
     required: true,
