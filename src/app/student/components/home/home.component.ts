@@ -37,7 +37,10 @@ cards = [
 ]
 
   constructor(private _http: HttpClient) {
-    
+    if(window.outerWidth < 750)
+      this.sm = true
+    else
+      this.sm = false
   }
 
   ngOnInit(): void {

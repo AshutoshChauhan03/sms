@@ -33,7 +33,7 @@
           >Student</a
         >
 
-        <a *ngIf="loggedIn" class="aStyle" (click)="toggleActive()">{{
+        <a *ngIf="loggedIn" class="aStyle">{{
           loggedInUserName.split("@")[0] | titlecase
         }}</a>
         <mat-icon *ngIf="loggedIn" class="styleIcon">logout</mat-icon>
@@ -84,14 +84,9 @@
           >Student</a
         >
 
-        <a
-          *ngIf="loggedIn"
-          [routerLink]="['details']"
-          routerLinkActive="active"
-          class="aStyle"
-          (click)="toggleActive()"
-          >{{ loggedInUserName.split("@")[0] | titlecase }}</a
-        >
+        <a *ngIf="loggedIn" routerLinkActive="active" class="aStyle">{{
+          loggedInUserName.split("@")[0] | titlecase
+        }}</a>
       </div>
       <div [style.paddingTop]="'10px'" fxLayoutAlign="center center">
         <mat-icon *ngIf="loggedIn" class="styleIcon">logout</mat-icon>

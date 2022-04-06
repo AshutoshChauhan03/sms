@@ -9,6 +9,7 @@ router.use(bodyParser.json());
 const DetailsModel = require("../Schema/details");
 const UserModel = require("../Schema/user");
 const AcademicsModel = require("../Schema/academics");
+const LeaveModel = require("../Schema/leave");
 
 const verifyTokenPermissions = async (req, res, next) => {
   const { id } = req.params;
@@ -132,7 +133,22 @@ const verifyToken = async (req, res, next) => {
 router.post("/academics/:id", verifyToken, async (req, res) => {
   const academic = new AcademicsModel(req.body);
   academic.save();
-  return res.send("Successful");
+  return res.send({ msg: "Successful" });
+});
+
+router.post("/leave/:id", verifyToken, async (req, res) => {
+  const { reason, start, end } = req.body;
+  const id = req.params.id;
+
+  const leaveBody = {
+    student_Id: id,
+    reason,
+    start,
+    end,
+  };
+
+  new LeaveModel(leaveBody).save();
+  return res.send({ msg: "Successful" });
 });
 
 module.exports = router;
