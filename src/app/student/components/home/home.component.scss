@@ -50,3 +50,8 @@ h3 {
 h5 {
   margin: 0;
 }
+
+.hover:hover {
+  transition: .2s;
+  box-shadow: 2.5px 2.5px 5px grey;
+}

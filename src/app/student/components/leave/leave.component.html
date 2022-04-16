@@ -1,67 +1,69 @@
 <div class="leave">
-  <h1>Apply For Leave</h1>
-  <mat-stepper
-    [orientation]="(stepperOrientation | async)!"
-    [linear]="true"
-    #stepper
-  >
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Reason of leave</ng-template>
-        <mat-form-field appearance="fill">
-          <mat-label>Enter in brief</mat-label>
-          <input matInput formControlName="firstCtrl" required />
-          <mat-error
-            *ngIf="firstFormGroup.controls['firstCtrl'].errors?.['required']"
-            >Required</mat-error
-          >
-          <mat-error
-            *ngIf="firstFormGroup.controls['firstCtrl'].errors?.['minlength']"
-            >Min length is 10</mat-error
-          >
-        </mat-form-field>
+  <div class="">
+    <h1>Apply For Leave</h1>
+    <mat-stepper
+      [orientation]="(stepperOrientation | async)!"
+      [linear]="true"
+      #stepper
+    >
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Reason of leave</ng-template>
+          <mat-form-field appearance="fill">
+            <mat-label>Enter in brief</mat-label>
+            <input matInput formControlName="firstCtrl" required />
+            <mat-error
+              *ngIf="firstFormGroup.controls['firstCtrl'].errors?.['required']"
+              >Required</mat-error
+            >
+            <mat-error
+              *ngIf="firstFormGroup.controls['firstCtrl'].errors?.['minlength']"
+              >Min length is 10</mat-error
+            >
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup" label="Select Duration">
+        <form [formGroup]="secondFormGroup">
+          <mat-form-field appearance="fill">
+            <mat-label>Enter start date</mat-label>
+            <input
+              matInput
+              formControlName="secondCtrlOne"
+              type="date"
+              (change)="changeStartDate()"
+              min="{{ minDate }}"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field [style.marginLeft]="'10px'" appearance="fill">
+            <mat-label>Enter end date</mat-label>
+            <input
+              matInput
+              formControlName="secondCtrlTwo"
+              min="{{ startDate.value || minDate }}"
+              type="date"
+              required
+            />
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="onSubmit(stepper)">Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>Your application is submitted successfully !</p>
         <div>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button (click)="stepper.reset()">Apply New</button>
         </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="secondFormGroup" label="Select Duration">
-      <form [formGroup]="secondFormGroup">
-        <mat-form-field appearance="fill">
-          <mat-label>Enter start date</mat-label>
-          <input
-            matInput
-            formControlName="secondCtrlOne"
-            type="date"
-            (change)="changeStartDate()"
-            min="{{ minDate }}"
-            required
-          />
-        </mat-form-field>
-        <mat-form-field [style.marginLeft]="'10px'" appearance="fill">
-          <mat-label>Enter end date</mat-label>
-          <input
-            matInput
-            formControlName="secondCtrlTwo"
-            min="{{ startDate.value || minDate }}"
-            type="date"
-            required
-          />
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button (click)="onSubmit(stepper)">Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>Your application is submitted successfully !</p>
-      <div>
-        <button mat-button (click)="stepper.reset()">Apply New</button>
-      </div>
-    </mat-step>
-  </mat-stepper>
+      </mat-step>
+    </mat-stepper>
+  </div>
 
   <cdk-accordion class="example-accordion">
     <cdk-accordion-item
@@ -73,14 +75,18 @@
       [attr.id]="'accordion-header-' + index"
       [attr.aria-expanded]="accordionItem.expanded"
       [attr.aria-controls]="'accordion-body-' + index"
+      [expanded]="index == 0 ? true : false"
     >
       <div
+        [ngClass]="{ active: accordionItem.expanded }"
         class="example-accordion-item-header"
         (click)="accordionItem.toggle()"
       >
-        {{ leave.reason }}
+        <h4 [style.fontSize]="'1.1em'">Leave {{ index + 1 }}</h4>
         <span class="example-accordion-item-description">
-          Click to {{ accordionItem.expanded ? "close" : "open" }}
+          <mat-icon [ngClass]="{ active_icon: accordionItem.expanded }">{{
+            accordionItem.expanded ? "expand_less" : "expand_more"
+          }}</mat-icon>
         </span>
       </div>
       <div
@@ -90,20 +96,22 @@
         [attr.id]="'accordion-body-' + index"
         [attr.aria-labelledby]="'accordion-header-' + index"
       >
-        <div class="">
-          <div fxLayout class="">
+        <div fxLayout="row" fxLayoutAlign="space-around center">
+          <div fxLayout>
             <p>Reason Of Leave :</p>
-            <p>{{ leave.reason }}</p>
+            <p [style.marginLeft]="'10px'">{{ leave.reason }}</p>
           </div>
-          <div fxLayout class="">
+          <div fxLayout>
             <p>Leave Start date :</p>
-            <p>{{ leave.start }}</p>
+            <p [style.marginLeft]="'10px'">{{ leave.start }}</p>
           </div>
-          <div fxLayout class="">
+          <div fxLayout>
             <p>Leave End date :</p>
-            <p>{{ leave.end }}</p>
+            <p [style.marginLeft]="'10px'">{{ leave.end }}</p>
           </div>
-          <button (click)="deleteLeave(leave._id)">Delete</button>
+          <mat-icon class="icon" (click)="deleteLeave(leave._id)"
+            >delete</mat-icon
+          >
         </div>
       </div>
     </cdk-accordion-item>
