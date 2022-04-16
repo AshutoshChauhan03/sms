@@ -1,17 +1,26 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
+  url = `http://localhost:3000/students/`;
 
   constructor(private _http: HttpClient) { }
 
   postLeave(leaveBody: {}, student_Id: string | null) {
-    const url = `http://localhost:3000/students/leave/${student_Id}`;
-    console.log(url);
-    console.log(leaveBody);
+    const url = this.url + `leave/${student_Id}`;
     return this._http.post(url, leaveBody)
+  }
+
+  getLeave(student_Id: string | null) {
+    const url = this.url + `leave/${student_Id}`;
+    return this._http.get(url)
+  }
+
+  deleteLeave(student_Id: string | null, _id: string) {
+    const url = this.url + `leave/${student_Id}/${_id}`;
+    return this._http.delete(url, {body: {_id}});
   }
 }

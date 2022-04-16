@@ -16,6 +16,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatTableModule} from '@angular/material/table';
 import { HomeComponent } from './components/home/home.component';
 import {MatSelectModule} from '@angular/material/select';
+import {CdkAccordionModule} from '@angular/cdk/accordion';
 
 import { 
 	IgxDataChartCoreModule,
@@ -54,7 +55,8 @@ const materialModule = [
     IgxDataChartCoreModule,
 	  IgxDataChartVerticalCategoryModule,
 	  IgxLegendModule,
-	  IgxDataChartInteractivityModule
+	  IgxDataChartInteractivityModule,
+    CdkAccordionModule
   ],
   exports: [
   ]

@@ -62,4 +62,50 @@
       </div>
     </mat-step>
   </mat-stepper>
+
+  <cdk-accordion class="example-accordion">
+    <cdk-accordion-item
+      *ngFor="let leave of allLeaves; let index = index"
+      #accordionItem="cdkAccordionItem"
+      class="example-accordion-item"
+      role="button"
+      tabindex="0"
+      [attr.id]="'accordion-header-' + index"
+      [attr.aria-expanded]="accordionItem.expanded"
+      [attr.aria-controls]="'accordion-body-' + index"
+    >
+      <div
+        class="example-accordion-item-header"
+        (click)="accordionItem.toggle()"
+      >
+        {{ leave.reason }}
+        <span class="example-accordion-item-description">
+          Click to {{ accordionItem.expanded ? "close" : "open" }}
+        </span>
+      </div>
+      <div
+        class="example-accordion-item-body"
+        role="region"
+        [style.display]="accordionItem.expanded ? '' : 'none'"
+        [attr.id]="'accordion-body-' + index"
+        [attr.aria-labelledby]="'accordion-header-' + index"
+      >
+        <div class="">
+          <div fxLayout class="">
+            <p>Reason Of Leave :</p>
+            <p>{{ leave.reason }}</p>
+          </div>
+          <div fxLayout class="">
+            <p>Leave Start date :</p>
+            <p>{{ leave.start }}</p>
+          </div>
+          <div fxLayout class="">
+            <p>Leave End date :</p>
+            <p>{{ leave.end }}</p>
+          </div>
+          <button (click)="deleteLeave(leave._id)">Delete</button>
+        </div>
+      </div>
+    </cdk-accordion-item>
+  </cdk-accordion>
 </div>

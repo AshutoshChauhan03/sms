@@ -20,7 +20,6 @@ import { CustomSnackBarService } from './services/custom-snack-bar.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
 
-
 const materialModules = [
   MatToolbarModule,
   MatIconModule,
@@ -39,11 +38,9 @@ const materialModules = [
     AppRoutingModule,
     GlobalComponentModule,
     materialModules,
-
     FormsModule,
     LogInModule,
-
-    StudentModule
+    StudentModule,
   ],
   providers: [
     GlobalService,

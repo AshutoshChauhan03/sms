@@ -19,12 +19,17 @@ export class LeaveComponent implements OnInit {
   today: Date = new Date();
   minDate = "";
   startDate = new BehaviorSubject("");
+  allLeaves: any;
 
   constructor(private _formBuilder: FormBuilder, private _customSnackbar: CustomSnackBarService, private _global: GlobalService, private _studentService: StudentService) {
     this.minDate = `${this.today.getFullYear()}-${(this.today.getMonth()+1).toString().padStart(2, "0")}-${(this.today.getDate()).toString().padStart(2, "0")}`
     this.startDate.next(this.minDate)
 
     this.stepperOrientation = _global.breakPoint.pipe(map(({matches}) => (matches ? 'horizontal' : 'vertical')));
+
+    this._studentService.getLeave(localStorage.getItem('user')).subscribe((data)=> {
+      this.allLeaves = data;
+    });
   }
 
   changeStartDate() {
@@ -52,6 +57,9 @@ export class LeaveComponent implements OnInit {
       this._studentService.postLeave(leaveBody, localStorage.getItem('user')).subscribe(data => {
         if(Object.values(data)[0] === "Successful") {
           this._customSnackbar.open('Leave Applied')
+          this._studentService.getLeave(localStorage.getItem('user')).subscribe((data)=> {
+            this.allLeaves = data;
+          });
           stepper.next()
         }
         else{
@@ -60,5 +68,14 @@ export class LeaveComponent implements OnInit {
         }
       })
     }
+  }
+
+  deleteLeave(_id: any) {
+    this._studentService.deleteLeave(localStorage.getItem('user'), _id).subscribe((data:any)=>{
+      this._customSnackbar.open(data.msg)
+        this._studentService.getLeave(localStorage.getItem('user')).subscribe((data)=> {
+        this.allLeaves = data;
+      });
+    });
   }
 }

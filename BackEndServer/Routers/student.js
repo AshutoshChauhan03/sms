@@ -122,7 +122,6 @@ const verifyToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     const payload = await jwt.verify(token, process.env.SECRET_KEY_ON_SERVER);
-    console.log(payload);
     if (payload.id === req.params.id) next();
     else return res.send({ err: "Unauthorized Access" });
   } catch (err) {
@@ -149,6 +148,18 @@ router.post("/leave/:id", verifyToken, async (req, res) => {
 
   new LeaveModel(leaveBody).save();
   return res.send({ msg: "Successful" });
+});
+
+router.get("/leave/:id", verifyToken, async (req, res) => {
+  const id = req.params.id;
+  const leaves = await LeaveModel.find({ student_Id: id });
+  return res.status(200).send(leaves);
+});
+
+router.delete("/leave/:id/:_id", verifyToken, async (req, res) => {
+  const _id = req.params._id;
+  const response = await LeaveModel.findByIdAndDelete(_id);
+  return res.status(200).send({ msg: "response" });
 });
 
 module.exports = router;
