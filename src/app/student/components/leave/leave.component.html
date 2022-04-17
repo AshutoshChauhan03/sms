@@ -1,4 +1,6 @@
-<div class="leave">
+<app-progress-bar *ngIf="loading"></app-progress-bar>
+
+<div class="leave" *ngIf="!displayApplication">
   <div class="">
     <h1>Apply For Leave</h1>
     <mat-stepper
@@ -6,27 +8,49 @@
       [linear]="true"
       #stepper
     >
-      <mat-step [stepControl]="firstFormGroup">
+      <mat-step [editable]="!submitted" [stepControl]="firstFormGroup">
         <form [formGroup]="firstFormGroup">
           <ng-template matStepLabel>Reason of leave</ng-template>
-          <mat-form-field appearance="fill">
-            <mat-label>Enter in brief</mat-label>
-            <input matInput formControlName="firstCtrl" required />
-            <mat-error
-              *ngIf="firstFormGroup.controls['firstCtrl'].errors?.['required']"
-              >Required</mat-error
+          <div fxLayout fxLayoutAlign="start center">
+            <mat-form-field appearance="fill">
+              <mat-label>Enter in brief</mat-label>
+              <input matInput formControlName="firstCtrlOne" required />
+              <mat-error
+                *ngIf="firstFormGroup.controls['firstCtrlOne'].errors?.['required']"
+                >Required*</mat-error
+              >
+              <mat-error
+                *ngIf="firstFormGroup.controls['firstCtrlOne'].errors?.['minlength']"
+                >Min length is 10</mat-error
+              >
+            </mat-form-field>
+            <div class="spacer"></div>
+            <mat-form-field appearance="fill">
+              <mat-label>Upload Application</mat-label>
+              <ngx-mat-file-input
+                (change)="uploadedPic()"
+                formControlName="firstCtrlTwo"
+              >
+              </ngx-mat-file-input>
+              <mat-error>Required*</mat-error>
+            </mat-form-field>
+            <mat-icon
+              class="icon"
+              [style.margin]="'0 0 10px 15px'"
+              (click)="clear()"
+              >delete</mat-icon
             >
-            <mat-error
-              *ngIf="firstFormGroup.controls['firstCtrl'].errors?.['minlength']"
-              >Min length is 10</mat-error
-            >
-          </mat-form-field>
+          </div>
           <div>
             <button mat-button matStepperNext>Next</button>
           </div>
         </form>
       </mat-step>
-      <mat-step [stepControl]="secondFormGroup" label="Select Duration">
+      <mat-step
+        [editable]="!submitted"
+        [stepControl]="secondFormGroup"
+        label="Select Duration"
+      >
         <form [formGroup]="secondFormGroup">
           <mat-form-field appearance="fill">
             <mat-label>Enter start date</mat-label>
@@ -109,11 +133,31 @@
             <p>Leave End date :</p>
             <p [style.marginLeft]="'10px'">{{ leave.end }}</p>
           </div>
-          <mat-icon class="icon" (click)="deleteLeave(leave._id)"
-            >delete</mat-icon
-          >
+          <div fxLayout>
+            <p>Creation date :</p>
+            <p [style.marginLeft]="'10px'">{{ leave.creationDate }}</p>
+          </div>
+          <div>
+            <mat-icon class="icon" (click)="view(leave.imageName)"
+              >image_search</mat-icon
+            >
+            <mat-icon
+              [style.marginLeft]="'10px'"
+              class="icon"
+              (click)="deleteLeave(leave._id)"
+              >delete</mat-icon
+            >
+          </div>
         </div>
       </div>
     </cdk-accordion-item>
   </cdk-accordion>
+</div>
+
+<div *ngIf="displayApplication" class="cover">
+  <div [style.margin]="'4vh 0 5vh 4vw'"><h1>Application Preview</h1></div>
+  <div class="inside">
+    <mat-icon (click)="view('')" class="cross">cancel</mat-icon>
+    <img src="{{ imageUrl }}" alt="Image Not Found !" />
+  </div>
 </div>

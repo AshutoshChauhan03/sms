@@ -17,6 +17,14 @@ const leaveSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  creationDate: {
+    type: String,
+    required: true,
+  },
+  imageName: {
+    type: String,
+    required: true,
+  },
 });
 
 const LeaveModel = mongoose.model("Leave", leaveSchema);

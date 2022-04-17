@@ -17,6 +17,7 @@ import {MatTableModule} from '@angular/material/table';
 import { HomeComponent } from './components/home/home.component';
 import {MatSelectModule} from '@angular/material/select';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
+import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 
 import { 
 	IgxDataChartCoreModule,
@@ -56,7 +57,8 @@ const materialModule = [
 	  IgxDataChartVerticalCategoryModule,
 	  IgxLegendModule,
 	  IgxDataChartInteractivityModule,
-    CdkAccordionModule
+    CdkAccordionModule,
+    NgxMatFileInputModule
   ],
   exports: [
   ]

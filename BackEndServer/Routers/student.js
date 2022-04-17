@@ -3,6 +3,8 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 const bodyParser = require("body-parser");
+const fs = require("fs");
+const path = require("path");
 
 router.use(bodyParser.json());
 
@@ -10,6 +12,7 @@ const DetailsModel = require("../Schema/details");
 const UserModel = require("../Schema/user");
 const AcademicsModel = require("../Schema/academics");
 const LeaveModel = require("../Schema/leave");
+const GalleryModel = require("../Schema/gallery");
 
 const verifyTokenPermissions = async (req, res, next) => {
   const { id } = req.params;
@@ -136,14 +139,18 @@ router.post("/academics/:id", verifyToken, async (req, res) => {
 });
 
 router.post("/leave/:id", verifyToken, async (req, res) => {
-  const { reason, start, end } = req.body;
+  const { reason, start, end, creationDate, imageName } = req.body;
   const id = req.params.id;
 
+  // upload application
+  console.log(req.body);
   const leaveBody = {
     student_Id: id,
     reason,
     start,
     end,
+    creationDate,
+    imageName,
   };
 
   new LeaveModel(leaveBody).save();
@@ -159,6 +166,13 @@ router.get("/leave/:id", verifyToken, async (req, res) => {
 router.delete("/leave/:id/:_id", verifyToken, async (req, res) => {
   const _id = req.params._id;
   const response = await LeaveModel.findByIdAndDelete(_id);
+  await GalleryModel.findOneAndDelete({ imageName: response.imageName });
+  try {
+    const filepath = path.join(__dirname, "..", "uploads", response.imageName);
+    fs.unlinkSync(filepath);
+  } catch (err) {
+    console.error(err);
+  }
   return res.status(200).send({ msg: "response" });
 });
 

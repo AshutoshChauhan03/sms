@@ -11,6 +11,7 @@ export class StudentService {
 
   postLeave(leaveBody: {}, student_Id: string | null) {
     const url = this.url + `leave/${student_Id}`;
+
     return this._http.post(url, leaveBody)
   }
 
@@ -22,5 +23,13 @@ export class StudentService {
   deleteLeave(student_Id: string | null, _id: string) {
     const url = this.url + `leave/${student_Id}/${_id}`;
     return this._http.delete(url, {body: {_id}});
+  }
+
+  uploadFile(fd: FormData) {
+    return this._http.post("http://localhost:3000/upload", fd);
+  }
+
+  getFile(student_id: string, typeOf: string, imageName: string) {
+    return this._http.get(`http://localhost:3000/upload/${student_id}/${typeOf}/${imageName}`);
   }
 }

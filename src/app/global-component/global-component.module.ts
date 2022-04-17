@@ -11,6 +11,8 @@ import { AppRoutingModule } from '../app-routing.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatCardModule} from '@angular/material/card';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 
 const materialModules = [
   MatToolbarModule,
@@ -18,7 +20,8 @@ const materialModules = [
   MatButtonModule,
   FlexLayoutModule,
   MatSidenavModule,
-  MatCardModule
+  MatCardModule,
+  MatProgressBarModule,
 ]
 
 @NgModule({
@@ -27,17 +30,19 @@ const materialModules = [
     FooterComponent,
     PageNotFoundComponent,
     SidebarComponent,
+    ProgressBarComponent,
   ],
   imports: [
     CommonModule,
     AppRoutingModule,
-    materialModules
+    materialModules,
   ],
   exports: [
     HeaderComponent,
     FooterComponent,
     PageNotFoundComponent,
-    SidebarComponent
+    ProgressBarComponent,
+    SidebarComponent,
   ]
 })
 export class GlobalComponentModule { }
