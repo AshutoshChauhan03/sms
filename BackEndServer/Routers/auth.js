@@ -145,11 +145,11 @@ router.get("/resetpassword/:id/:otp", async (req, res) => {
       .status(200)
       .send({ msg: "Go back to browser to reset password" });
   } catch (err) {
-    return res.status(400).send({ msg: "Invalid Access" });
+    return res.status(400).send({ msg: "Token Expired" });
   }
 });
 // handling reset password
-router.patch("/resetpassword/id/:id", async (req, res) => {
+router.post("/resetpassword/id/:id", async (req, res) => {
   const { id } = req.params;
   const { password } = req.body;
   const flag = await UserModel.findOne({ id: id }).exec();

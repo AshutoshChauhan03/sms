@@ -18,14 +18,8 @@ import { HomeComponent } from './components/home/home.component';
 import {MatSelectModule} from '@angular/material/select';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
+import { NgApexchartsModule } from "ng-apexcharts";
 
-import { 
-	IgxDataChartCoreModule,
-	IgxDataChartVerticalCategoryModule,
-	IgxLegendModule,
-	IgxDataChartInteractivityModule
- } from "igniteui-angular-charts";
- 
 const materialModule = [
   MatStepperModule,
   MatTableModule,
@@ -53,12 +47,9 @@ const materialModule = [
     MatStepperModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    IgxDataChartCoreModule,
-	  IgxDataChartVerticalCategoryModule,
-	  IgxLegendModule,
-	  IgxDataChartInteractivityModule,
     CdkAccordionModule,
-    NgxMatFileInputModule
+    NgxMatFileInputModule,
+    NgApexchartsModule
   ],
   exports: [
   ]

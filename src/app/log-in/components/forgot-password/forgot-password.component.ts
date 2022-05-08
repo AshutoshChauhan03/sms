@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { CustomSnackBarService } from 'src/app/services/custom-snack-bar.service';
 import { AuthService } from '../../auth.service';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-forgot-password',
@@ -15,7 +16,6 @@ export class ForgotPasswordComponent implements OnInit {
   secondFormGroup!: FormGroup;
 
   detailsTrue = new BehaviorSubject(false) || false
-  passwordTrue = new BehaviorSubject(false) || false
 
   constructor(private _formBuilder: FormBuilder, private _auth:AuthService, private _customSnack: CustomSnackBarService) {    
   }
@@ -30,13 +30,13 @@ export class ForgotPasswordComponent implements OnInit {
     });
   }
 
-  sendEmail() {
+  sendEmail(stepper: MatStepper) {
     if(this.firstFormGroup.valid) {
       this._auth.sendOTP(this.firstFormGroup.value).subscribe((data: any)=> {
         if(Object.keys(data)[0] == "Success") {
           this._customSnack.open(`${Object.values(data)[0]}`)
           this.detailsTrue.next(true)
-          console.log(this.detailsTrue.value);
+          stepper.next()
         }
         else {
             this._customSnack.open(`${Object.values(data)[0]}`)
@@ -48,18 +48,20 @@ export class ForgotPasswordComponent implements OnInit {
     }
   }
 
-  resetPassword() {
+  resetPassword(stepper : MatStepper) {
     if(!this.secondFormGroup.valid)
       return;
     else {
       this._auth.resetPassword(this.secondFormGroup.value, Object.values(this.firstFormGroup.value)[0]).subscribe(data => {
         console.log(data);
-        if(Object.values(data)[1] == "OTP not verified") {
+        if(Object.values(data)[0] == "OTP not verified") {
           this._customSnack.open(`${Object.values(data)[0]}`)
-          this.passwordTrue.next(true)
         }
         else {
+          console.log("here");
+          
           this._customSnack.open(`${Object.values(data)[0]}`)
+          stepper.next()
         }
       });
 

@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   resetPassword(reqbody: any, id:any) {
-    return this._http.patch(`${this.url}resetpassword/id/${id}`, reqbody)    
+    return this._http.post(`${this.url}resetpassword/id/${id}`, reqbody)    
   }
 
   checkAdminStatus() {

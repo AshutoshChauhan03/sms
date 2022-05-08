@@ -18,6 +18,7 @@ var storage = multer.diskStorage({
     }
     if (file.mimetype === "image/jpeg") {
       filetype = "jpg";
+    } else {
     }
     cb(null, "image-" + Date.now() + "." + filetype);
   },
@@ -28,7 +29,6 @@ var upload = multer({ storage: storage });
 router.get("/:student_id/:typeOf/:imageName", (req, res) => {
   const { student_id, typeOf, imageName } = req.params;
   GalleryModel.findOne({ student_id, typeOf, imageName }, (err, items) => {
-    console.log(err);
     if (!items) {
       return res.status(500).send({ err: "Cannot find file !" });
     } else {

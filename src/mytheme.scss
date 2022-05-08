@@ -1,8 +1,74 @@
 @import "~@angular/material/theming";
 @include mat-core();
 
-$my-app-primary: mat-palette($mat-blue-grey);
-$my-app-accent: mat-palette($mat-teal, 500, 900, A100);
-$my-app-warn: mat-palette($mat-deep-orange);
+$primary-palette: (50: #0B3142,
+    100: #0B3142,
+    200: #0B3142,
+    300: #0B3142,
+    400: #0B3142,
+    500: #0B3142,
+    600: #0B3142,
+    700: #0B3142,
+    800: #0B3142,
+    900: #0B3142,
+    contrast: (50: rgba(#0B3142, 0.87),
+        100: rgba(#0B3142, 0.87),
+        200: rgba(#0B3142, 0.87),
+        300: rgba(#0B3142, 0.87),
+        400: rgba(#0B3142, 0.87),
+        500: rgba(#0B3142, 0.87),
+        600: rgba(#0B3142, 0.87),
+        700: rgba(#0B3142, 0.87),
+        800: rgba(#0B3142, 0.87),
+        900: rgba(#0B3142, 0.87),
+    ));
+
+$accent-palette: (50: #92B9BD,
+    100: #92B9BD,
+    200: #92B9BD,
+    300: #92B9BD,
+    400: #92B9BD,
+    500: #92B9BD,
+    600: #92B9BD,
+    700: #92B9BD,
+    800: #92B9BD,
+    900: #92B9BD,
+    contrast: (50: rgba(#92B9BD, 0.87),
+        100: rgba(#92B9BD, 0.87),
+        200: rgba(#92B9BD, 0.87),
+        300: rgba(#92B9BD, 0.87),
+        400: rgba(#92B9BD, 0.87),
+        500: rgba(#92B9BD, 0.87),
+        600: rgba(#92B9BD, 0.87),
+        700: rgba(#92B9BD, 0.87),
+        800: rgba(#92B9BD, 0.87),
+        900: rgba(#92B9BD, 0.87),
+    ));
+
+$warn-palette: (50: #AA0E30,
+    100: #AA0E30,
+    200: #AA0E30,
+    300: #AA0E30,
+    400: #AA0E30,
+    500: #AA0E30,
+    600: #AA0E30,
+    700: #AA0E30,
+    800: #AA0E30,
+    900: #AA0E30,
+    contrast: (50: rgba(#AA0E30, 0.87),
+        100: rgba(#AA0E30, 0.87),
+        200: rgba(#AA0E30, 0.87),
+        300: rgba(#AA0E30, 0.87),
+        400: rgba(#AA0E30, 0.87),
+        500: rgba(#AA0E30, 0.87),
+        600: rgba(#AA0E30, 0.87),
+        700: rgba(#AA0E30, 0.87),
+        800: rgba(#AA0E30, 0.87),
+        900: rgba(#AA0E30, 0.87),
+    ));
+
+$my-app-primary: mat-palette($primary-palette);
+$my-app-accent: mat-palette($accent-palette);
+$my-app-warn: mat-palette($warn-palette);
 $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
 @include angular-material-theme($my-app-theme);

@@ -120,7 +120,7 @@
         [attr.id]="'accordion-body-' + index"
         [attr.aria-labelledby]="'accordion-header-' + index"
       >
-        <div fxLayout="row" fxLayoutAlign="space-around center">
+        <div fxLayout="row wrap" fxLayoutAlign="space-around center">
           <div fxLayout>
             <p>Reason Of Leave :</p>
             <p [style.marginLeft]="'10px'">{{ leave.reason }}</p>

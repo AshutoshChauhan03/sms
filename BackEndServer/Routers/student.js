@@ -16,8 +16,14 @@ const GalleryModel = require("../Schema/gallery");
 
 const verifyTokenPermissions = async (req, res, next) => {
   const { id } = req.params;
-  const flag = await UserModel.findOne({ id }).exec();
+  const token = req.headers.authorization.split(" ")[1];
+  try {
+    await jwt.verify(token, process.env.SECRET_KEY_ON_SERVER);
+  } catch {
+    return res.status(200).send({ err: "Invalid Token" });
+  }
 
+  const flag = await UserModel.findOne({ id }).exec();
   if (flag) {
     if (flag.adminStatus) {
       next();
@@ -132,18 +138,24 @@ const verifyToken = async (req, res, next) => {
   }
 };
 
-router.post("/academics/:id", verifyToken, async (req, res) => {
+router.post("/academics/:id", verifyTokenPermissions, async (req, res) => {
   const academic = new AcademicsModel(req.body);
   academic.save();
   return res.send({ msg: "Successful" });
+});
+router.get("/academics/:id", verifyToken, async (req, res) => {
+  const id = req.params.id;
+  const academic = await AcademicsModel.findOne({ student_Id: id });
+  if (academic) {
+    return res.status(200).send(academic);
+  }
+  return res.status(200).send({ msg: "Unknown Error" });
 });
 
 router.post("/leave/:id", verifyToken, async (req, res) => {
   const { reason, start, end, creationDate, imageName } = req.body;
   const id = req.params.id;
 
-  // upload application
-  console.log(req.body);
   const leaveBody = {
     student_Id: id,
     reason,

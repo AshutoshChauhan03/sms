@@ -32,4 +32,9 @@ export class StudentService {
   getFile(student_id: string, typeOf: string, imageName: string) {
     return this._http.get(`http://localhost:3000/upload/${student_id}/${typeOf}/${imageName}`);
   }
+
+  getAcademics() {
+    const url = `http://localhost:3000/students/academics/${localStorage.getItem('user')}`
+    return this._http.get(url);
+  }
 }

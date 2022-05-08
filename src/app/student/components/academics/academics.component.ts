@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { StudentService } from '../../services/student.service';
 
 const ELEMENT_DATA: Object[] = [
   {position: 1, name: 'Software lifecycle', weight: 83, symbol: '100'},
@@ -12,6 +13,33 @@ const ELEMENT_DATA: Object[] = [
   {position: 9, name: 'Partical Four', weight: 95, symbol: '100'},
   {position: 10, name: 'Partical Five', weight: 68, symbol: '100'},
 ];
+
+import {
+  ApexAxisChartSeries,
+  ApexChart,
+  ChartComponent,
+  ApexDataLabels,
+  ApexPlotOptions,
+  ApexYAxis,
+  ApexLegend,
+  ApexStroke,
+  ApexXAxis,
+  ApexFill,
+  ApexTooltip
+} from "ng-apexcharts";
+
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  yaxis: ApexYAxis;
+  xaxis: ApexXAxis;
+  fill: ApexFill;
+  tooltip: ApexTooltip;
+  stroke: ApexStroke;
+  legend: ApexLegend;
+};
 
 interface Semester {
   value: string;
@@ -28,6 +56,9 @@ export class AcademicsComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
   
+  @ViewChild("chart") chart: ChartComponent | undefined;
+  public chartOptions: Partial<ChartOptions> | any;
+    
   semesters: Semester[] = [
     {value: '1', viewValue: 'Semester 1'},
     {value: '2', viewValue: 'Semester 2'},
@@ -36,12 +67,97 @@ export class AcademicsComponent implements OnInit {
     {value: '5', viewValue: 'Semester 5'},
     {value: '6', viewValue: 'Semester 6'},
   ];
+  allData: any;
+  subject: [] = [];
+  marks_obtained: {}[] = [{}];
+  days_attended: {}[] = [{}];
+  total_marks: {}[] = [{}]
   
-  constructor() {
-     
+  constructor(_studentService: StudentService) {
+    _studentService.getAcademics().subscribe((data: any) => {
+      this.allData = data;
+      this.subject = data.subject;
+      this.days_attended = data.days_attended;
+      this.marks_obtained = data.marks_obtained;
+      this.total_marks = data.total_marks;
+    })
+
+    this.chartOptions = {
+      series: [
+        {
+          name: "Machine Design",
+          data: [44, 55, 57, 56, 61, 58]
+        },
+        {
+          name: "Engeneering Math",
+          data: [76, 85, 88, 98, 87, 15]
+        },
+        {
+          name: "Software lifecycle",
+          data: [45, 41, 36, 28, 42, 58]
+        },
+        {
+          name: "Opps with C++",
+          data: [75, 41, 36, 26, 47, 68]
+        },
+        {
+          name: "Android Design",
+          data: [35, 45, 31, 86, 25, 88]
+        }
+      ],
+      chart: {
+        type: "bar",
+        height: 425
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: "55%",
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        show: true,
+        width: 2,
+        colors: ["transparent"]
+      },
+      xaxis: {
+        categories: [
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct"
+        ]
+      },
+      yaxis: {
+        title: {
+          text: "% (Attendance)"
+        }
+      },
+      fill: {
+        opacity: .85
+      },
+      tooltip: {
+        y: {
+          formatter: function(val: any) {
+            return val + "% (Attendance)";
+          }
+        }
+      }
+    };
+
   }
   
   ngOnInit(): void {
   }
+
+
 
 }

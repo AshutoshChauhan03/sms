@@ -23,12 +23,11 @@
     "@angular/platform-browser": "~13.2.0",
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
-    "firebase": "^9.6.8",
-    "igniteui-angular-charts": "^13.1.0",
     "jsonwebtoken": "^8.5.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "ng-apexcharts": "*"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~13.2.5",

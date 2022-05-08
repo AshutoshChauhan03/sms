@@ -5,6 +5,10 @@ const academicsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  semester: {
+    type: String,
+    required: true,
+  },
   subject: {
     type: [String],
     required: true,
@@ -19,6 +23,10 @@ const academicsSchema = new mongoose.Schema({
   },
   total_marks: {
     type: [{}],
+    required: true,
+  },
+  fileName: {
+    type: String,
     required: true,
   },
 });
