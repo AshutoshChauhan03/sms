@@ -19,11 +19,14 @@ import {MatSelectModule} from '@angular/material/select';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { NgApexchartsModule } from "ng-apexcharts";
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from './components/home/dialog.component';
 
 const materialModule = [
   MatStepperModule,
   MatTableModule,
-  MatSelectModule
+  MatSelectModule,
+  MatDialogModule
 ]
 
 @NgModule({
@@ -31,6 +34,7 @@ const materialModule = [
     AcademicsComponent,
     LeaveComponent,
     HomeComponent,
+    DialogComponent,
   ],
   imports: [
     CommonModule,

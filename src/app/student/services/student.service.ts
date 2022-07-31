@@ -37,4 +37,9 @@ export class StudentService {
     const url = `http://localhost:3000/students/academics/${localStorage.getItem('user')}`
     return this._http.get(url);
   }
+
+  getAcademicsSemData(sem: any) {
+    const url = `http://localhost:3000/students/academics/${localStorage.getItem('user')}/${sem}`
+    return this._http.get(url);
+  }
 }

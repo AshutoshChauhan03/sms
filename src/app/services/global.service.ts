@@ -11,10 +11,11 @@ export class GlobalService {
   loggedIn = new BehaviorSubject(false);
   screenWidth = new BehaviorSubject(window.outerWidth);
   breakPoint: Observable<BreakpointState>;
+  loading = new BehaviorSubject(false);
 
   constructor(breakpointObserver: BreakpointObserver) {
-      this.breakPoint = breakpointObserver
-      .observe('(min-width: 650px)')
+    // active listening to screen width
+    this.breakPoint = breakpointObserver.observe('(min-width: 650px)')
   }
 
 

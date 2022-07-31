@@ -50,9 +50,9 @@
       >
         <mat-card
           class="hover"
-          [style.margin]="'15px 0'"
-          [style.width]="'225px'"
           *ngFor="let card of cards"
+          style="margin: 15px 0; width: 225px; "
+          (click)="openDialog(card.head, card.icon, card.value)"
         >
           <p>{{ card.head }}</p>
           <mat-card-content fxLayout fxLayoutAlign="space-between">

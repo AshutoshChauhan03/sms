@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { GlobalService } from './services/global.service';
 
 @Component({
@@ -10,8 +11,9 @@ export class AppComponent {
 
   adminActive: boolean = false;
   loggedIn = false;
-  expanded=true;
-  showExpanded=false;
+  sidebarExpanded=true;
+  showSidebar=false;
+  loading = false;
 
   constructor(private _global: GlobalService) {
     this._global.loggedIn.subscribe((flag)=> {
@@ -19,15 +21,14 @@ export class AppComponent {
     });
     this._global.screenWidth.subscribe((data)=> {
       if(data < 900)
-        this.expanded = false;
+        this.sidebarExpanded = false;
       else
-        this.expanded = true;
+        this.sidebarExpanded = true;
     })
-  }
 
-  toggleShowExpanded() {
-    this.showExpanded=!this.showExpanded;
-    console.log(this.showExpanded);
+    this._global.loading.subscribe((flag: any) => {
+      this.loading = flag;
+    })
   }
 
   activeSwitch(key: boolean) {

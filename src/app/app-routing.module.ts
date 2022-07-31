@@ -13,16 +13,59 @@ import { HomeComponent } from './student/components/home/home.component';
 import { LeaveComponent } from './student/components/leave/leave.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/signin', pathMatch: 'full'},
-  { path: 'signin', component: SignInComponent, },
-  { path: 'college' , component: CollegeComponent, canActivate: [AdminGuard]},
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-  { path: 'forgotpassword', component: ForgotPasswordComponent },
-  { path: 'academics', component: AcademicsComponent, canActivate: [AuthGuard] },
-  { path: 'leave', component: LeaveComponent, canActivate: [AuthGuard] },
-  { path: 'students', component: StudentsComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: 'teachers', component: TeachersComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: '**', component: PageNotFoundComponent}
+  {
+    path: '',
+    redirectTo: '/signin',
+    pathMatch: 'full'
+  },
+  {
+    path: 'signin',
+    component: SignInComponent
+  },
+  {
+    path: 'forgotpassword',
+    component: ForgotPasswordComponent
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [AuthGuard],
+    // loadChildren: () => import('./student/student.module').then((module: any) => module.StudentModule)
+  },
+  {
+    path: 'academics',
+    component: AcademicsComponent,
+    canActivate: [AuthGuard],
+    // loadChildren: () => import('./student/student.module').then((module: any) => module.StudentModule)
+  },
+  {
+    path: 'leave',
+    component: LeaveComponent,
+    canActivate: [AuthGuard],
+    // loadChildren: () => import('./student/student.module').then((module: any) => module.StudentModule)
+  },
+  {
+    path: 'college',
+    component: CollegeComponent,
+    canActivate: [AuthGuard, AdminGuard],
+    // loadChildren: () => import('./admin/admin.module').then((module: any) => module.AdminModule)
+  },
+  {
+    path: 'students',
+    component: StudentsComponent,
+    canActivate: [AuthGuard, AdminGuard],
+    // loadChildren: () => import('./admin/admin.module').then((module: any) => module.AdminModule)
+  },
+  {
+    path: 'teachers',
+    component: TeachersComponent,
+    canActivate: [AuthGuard, AdminGuard],
+    // loadChildren: () => import('./admin/admin.module').then((module: any) => module.AdminModule)
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent
+  }
 ];
 
 @NgModule({

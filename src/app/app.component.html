@@ -1,43 +1,21 @@
 <main>
-  <app-header
-    [style.position]="'fixed'"
-    [style.zIndex]="'100'"
-    [style.width]="'100%'"
-    (active)="activeSwitch($event)"
-  ></app-header>
+  <app-progress-bar *ngIf="loading"
+    style="width: 100vw; height: 100vh; background-color: #000000; opacity: .25; z-index: 100000; position: fixed;">
+  </app-progress-bar>
+  <app-header style="position: sticky; top: 0px; z-Index: 100; width: 100%;"
+    (adminActiveEmitter)="activeSwitch($event)"></app-header>
 
-  <div [style.paddingTop]="'65px'">
-    <div fxLayout>
-      <app-sidebar
-        *ngIf="loggedIn && expanded"
-        fxFlex="14"
-        class="defaultHeight"
-      ></app-sidebar>
-      <app-sidebar
-        *ngIf="loggedIn && !expanded && showExpanded"
-        class="changedSidebar"
-      ></app-sidebar>
-      <div *ngIf="!loggedIn" fxFlex="100" class="home" class="defaultHeight">
-        <router-outlet></router-outlet>
-      </div>
-      <div
-        *ngIf="loggedIn && expanded"
-        fxFlex="86"
-        class="home"
-        class="default"
-      >
-        <router-outlet></router-outlet>
-      </div>
-      <div
-        *ngIf="loggedIn && !expanded"
-        fxFlex="100"
-        class="home"
-        class="default"
-      >
-        <router-outlet></router-outlet>
-      </div>
+  <div fxLayout>
+    <app-sidebar *ngIf="loggedIn && sidebarExpanded" fxFlex="14"></app-sidebar>
+    <div *ngIf="!loggedIn" fxFlex="100" class="home">
+      <router-outlet></router-outlet>
+    </div>
+    <div *ngIf="loggedIn && sidebarExpanded" fxFlex="86" class="home" class="default">
+      <router-outlet></router-outlet>
+    </div>
+    <div *ngIf="loggedIn && !sidebarExpanded" fxFlex="100" class="home" class="default">
+      <router-outlet></router-outlet>
     </div>
   </div>
-
   <app-footer></app-footer>
 </main>

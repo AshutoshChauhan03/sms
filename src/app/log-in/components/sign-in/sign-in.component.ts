@@ -45,14 +45,14 @@ export class SignInComponent implements OnInit {
   }
 
   submitUserDetails(formRef: any) {
-
+    this._globalService.loading.next(true);
     if (formRef.form.status == "VALID") {
 
       this.user.adminStatus = this.adminStatus;
       this._auth.signIn(this.user).subscribe(
         {
           next: async (data) => {
-
+            this._globalService.loading.next(false);
             if (Object.keys(data)[0] == "token") {
               localStorage.setItem("token", Object.values(data)[0])
               localStorage.setItem("user", this.user.id)
@@ -72,6 +72,7 @@ export class SignInComponent implements OnInit {
           },
           error: (error) => {
             console.log(JSON.stringify(error))
+           this._globalService.loading.next(false);
           }
         }
       );

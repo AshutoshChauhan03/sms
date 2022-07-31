@@ -1,92 +1,48 @@
+<!-- Global header for the application -->
 <main>
-  <mat-toolbar #header class="headerStyle">
-    <mat-toolbar-row>
-      <span style="margin-left: 5px; font-size: 23px">University Portal</span>
-      <span class="spacer"></span>
-
-      <div fxLayout="row" fxLayoutAlign="center center" *ngIf="!showHam">
-        <mat-icon
-          style="padding-right: 40px"
-          routerLinkActive="active"
-          [routerLink]="['/home']"
-          *ngIf="loggedIn"
-          class="styleIcon"
-          >home</mat-icon
-        >
-
-        <mat-icon class="styleIcon">person</mat-icon>
-        <a
-          *ngIf="!loggedIn"
-          [routerLink]="['signin']"
-          [ngClass]="{ active: adminActive }"
-          class="aStyle"
-          (click)="toggleActive()"
-          >Admin</a
-        >
+  <!-- Header which will be displayed always -->
+  <mat-toolbar class="headerStyle">
+    <mat-toolbar-row fxLayout fxLayoutAlign="space-between center">
+      <span style="margin-left: 7px; font-size: 22px">University Portal</span>
+      <!-- Display this only if hamburger is not shown -->
+      <div fxLayoutAlign="center center" *ngIf="!showHam">
+        <mat-icon style="padding: 40px; cursor: pointer;" routerLinkActive="active" [routerLink]="[indexPageNavigate()]"
+          *ngIf="loggedIn">home</mat-icon>
+        <mat-icon>person</mat-icon>
+        <a *ngIf="!loggedIn" [routerLink]="['signin']" [ngClass]="{ active: adminActive }" class="aStyle"
+          (click)="toggleActive()">Admin</a>
         <mat-icon *ngIf="!loggedIn" class="styleIcon">person_outline</mat-icon>
-        <a
-          *ngIf="!loggedIn"
-          [routerLink]="['signin']"
-          [ngClass]="{ active: !adminActive }"
-          class="aStyle"
-          (click)="toggleActive()"
-          >Student</a
-        >
+        <a *ngIf="!loggedIn" [routerLink]="['signin']" [ngClass]="{ active: !adminActive }" class="aStyle"
+          (click)="toggleActive()">Student</a>
 
         <a *ngIf="loggedIn" class="aStyle">{{
           loggedInUserName.split("@")[0] | titlecase
-        }}</a>
+          }}</a>
         <mat-icon *ngIf="loggedIn" class="styleIcon">logout</mat-icon>
         <a *ngIf="loggedIn" class="aStyle" (click)="logout()">Logout</a>
       </div>
-
-      <button
-        *ngIf="showHam"
-        mat-icon-button
-        color="accent"
-        class="navbar-toggle"
-        (click)="toggleNavbar()"
-      >
-        <mat-icon>{{ !navbarOpened ? "menu" : "close" }}</mat-icon>
+      <!-- Display hamburger -->
+      <button *ngIf="showHam" mat-icon-button (click)="expandNavbar()">
+        <mat-icon>{{ !expandedNavbar ? "menu" : "close" }}</mat-icon>
       </button>
     </mat-toolbar-row>
   </mat-toolbar>
 
-  <mat-toolbar
-    *ngIf="navbarOpened"
-    fxLayout
-    fxLayoutAlign="center center"
-    [style.backgroundColor]="'#124559'"
-    [style.height]="'max-content'"
-  >
-    <div
-      fxLayout="column"
-      [style.padding]="'25px'"
-      fxLayoutAlign="center center"
-    >
+  <!-- Addition to main Header which will be displayed when hamburger is clicked -->
+  <mat-toolbar *ngIf="expandedNavbar" [@fadeInOut] fxLayout class="headerStyle" fxLayoutAlign="center center"
+    style="background-color: #124559; height: max-content;">
+    <div fxLayout="column" [style.padding]="'25px'" fxLayoutAlign="center center">
       <div fxLayoutAlign="center center">
-        <mat-icon class="styleIcon">person</mat-icon>
-        <a
-          *ngIf="!loggedIn"
-          [routerLink]="['signin']"
-          [ngClass]="{ active: adminActive }"
-          class="aStyle"
-          (click)="toggleActive()"
-          >Admin</a
-        >
+        <mat-icon>person</mat-icon>
+        <a *ngIf="!loggedIn" [routerLink]="['signin']" [ngClass]="{ active: adminActive }" class="aStyle"
+          (click)="toggleActive()">Admin</a>
         <mat-icon *ngIf="!loggedIn" class="styleIcon">person_outline</mat-icon>
-        <a
-          *ngIf="!loggedIn"
-          [routerLink]="['signin']"
-          [ngClass]="{ active: !adminActive }"
-          class="aStyle"
-          (click)="toggleActive()"
-          >Student</a
-        >
+        <a *ngIf="!loggedIn" [routerLink]="['signin']" [ngClass]="{ active: !adminActive }" class="aStyle"
+          (click)="toggleActive()">Student</a>
 
         <a *ngIf="loggedIn" routerLinkActive="active" class="aStyle">{{
           loggedInUserName.split("@")[0] | titlecase
-        }}</a>
+          }}</a>
       </div>
       <div [style.paddingTop]="'10px'" fxLayoutAlign="center center">
         <mat-icon *ngIf="loggedIn" class="styleIcon">logout</mat-icon>

@@ -111,7 +111,7 @@ router.post("/forgotpassword", async (req, res) => {
       });
 
       const resetLink = `http://localhost:${process.env.PORT}/auth/resetpassword/${id}/${otp}`;
-
+      
       // send this resetLink to user email address
       sendEmail(id, resetLink).then((data) => {
         if (Object.keys(data)[0] == "err") {

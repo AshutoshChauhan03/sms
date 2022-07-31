@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef, HostListener, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { CustomSnackBarService } from 'src/app/services/custom-snack-bar.service';
@@ -6,37 +7,39 @@ import { GlobalService } from 'src/app/services/global.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate(250, style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate(250, style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class HeaderComponent implements OnInit {
 
-  // Custom properties
-  @Input()
-  color!: string;
-  @Input()
-  height!: string;
-  @ViewChild("header")
-  header!: any;
-  
   loggedIn = false;
   loggedInUserName!: any;
   adminActive: boolean = false;
-  
-  // emit true if admin is active
-  @Output()
-  active: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  navbarOpened = false;
+  @Output()
+  adminActiveEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  expandedNavbar = false;
   showHam = false;
 
-  constructor(private _globalService: GlobalService, private router: Router, private snackBar: CustomSnackBarService) { 
-    _globalService.loggedIn.subscribe(data=> {
+  constructor(private _globalService: GlobalService, private router: Router, private snackBar: CustomSnackBarService) {
+    _globalService.loggedIn.subscribe(data => {
       this.loggedIn = data
-      if(this.loggedIn)
+      if (this.loggedIn)
         this.loggedInUserName = localStorage.getItem('user');
     })
 
-    if(window.innerWidth < 750)
+    if (window.innerWidth < 750)
       this.showHam = true;
   }
 
@@ -44,22 +47,22 @@ export class HeaderComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.header._elementRef.nativeElement.style.backgroundColor = this.color;
-    this.header._elementRef.nativeElement.style.height = `${this.height}px`;
   }
 
-  homeNavigate() {
-    if(this.adminActive)
-      this.router.navigate(['/college'])
-    else
-      this.router.navigate(['/home'])
+  indexPageNavigate() {
+    if (this.adminActive) {
+      return '/college'
+    }
+    else {
+      return '/home'
+    }
   }
 
-  toggleNavbar(){this.navbarOpened=!this.navbarOpened}
+  expandNavbar() { this.expandedNavbar = !this.expandedNavbar }
 
   toggleActive() {
     this.adminActive = !this.adminActive;
-    this.active.emit(this.adminActive);
+    this.adminActiveEmitter.emit(this.adminActive);
     this._globalService.adminStatus.next(this.adminActive);
   }
 
@@ -74,11 +77,11 @@ export class HeaderComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this._globalService.screenWidth.next(event.target.innerWidth);
-    if(event.target.innerWidth < 800) {
+    if (event.target.innerWidth < 800) {
       this.showHam = true;
     }
     else {
-      this.navbarOpened=false;
+      this.expandedNavbar = false;
       this.showHam = false;
     }
   }

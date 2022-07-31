@@ -1,19 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { StudentService } from '../../services/student.service';
 
-const ELEMENT_DATA: Object[] = [
-  {position: 1, name: 'Software lifecycle', weight: 83, symbol: '100'},
-  {position: 2, name: 'Engeneering Math', weight: 77, symbol: '100'},
-  {position: 3, name: 'Machine Design', weight: 66, symbol: '100'},
-  {position: 4, name: 'Opps with C++', weight: 88, symbol: '100'},
-  {position: 5, name: 'Android Design', weight: 95, symbol: '100'},
-  {position: 6, name: 'Partical One', weight: 67, symbol: '100'},
-  {position: 7, name: 'Partical Two', weight: 77, symbol: '100'},
-  {position: 8, name: 'Partical Three', weight: 87, symbol: '100'},
-  {position: 9, name: 'Partical Four', weight: 95, symbol: '100'},
-  {position: 10, name: 'Partical Five', weight: 68, symbol: '100'},
-];
-
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -42,7 +29,7 @@ export type ChartOptions = {
 };
 
 interface Semester {
-  value: string;
+  value: number;
   viewValue: string;
 }
 
@@ -51,35 +38,49 @@ interface Semester {
   templateUrl: './academics.component.html',
   styleUrls: ['./academics.component.scss']
 })
-export class AcademicsComponent implements OnInit {
+export class AcademicsComponent {
   
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['position', 'subject', 'marks', 'total'];
+  dataSource : any;
   
   @ViewChild("chart") chart: ChartComponent | undefined;
   public chartOptions: Partial<ChartOptions> | any;
+
+  selectedSemester = 1;
     
   semesters: Semester[] = [
-    {value: '1', viewValue: 'Semester 1'},
-    {value: '2', viewValue: 'Semester 2'},
-    {value: '3', viewValue: 'Semester 3'},
-    {value: '4', viewValue: 'Semester 4'},
-    {value: '5', viewValue: 'Semester 5'},
-    {value: '6', viewValue: 'Semester 6'},
   ];
+  
   allData: any;
   subject: [] = [];
   marks_obtained: {}[] = [{}];
   days_attended: {}[] = [{}];
   total_marks: {}[] = [{}]
+  ELEMENT_DATA: Object[] = [];
   
-  constructor(_studentService: StudentService) {
-    _studentService.getAcademics().subscribe((data: any) => {
+  loading = true;
+
+  constructor(public _studentService: StudentService) {
+    _studentService.getAcademicsSemData(this.selectedSemester).subscribe((data: any) => {
       this.allData = data;
       this.subject = data.subject;
       this.days_attended = data.days_attended;
       this.marks_obtained = data.marks_obtained;
       this.total_marks = data.total_marks;
+
+      this.prepareTableDataFormat(data);
+    })
+
+    _studentService.getAcademics().subscribe((data: any) => {
+      let max = 0;
+      data.forEach((element: any) => {
+        if(max < element.semester)
+        max = element.semester
+      });
+      
+      this.semesters = [];
+      for(let i=1; i<=max; i++)
+        this.semesters.push({value: i, viewValue: `Semester ${i}`})
     })
 
     this.chartOptions = {
@@ -154,10 +155,31 @@ export class AcademicsComponent implements OnInit {
     };
 
   }
-  
-  ngOnInit(): void {
+
+  prepareTableDataFormat(data: any) {
+    this.ELEMENT_DATA = []
+    for(let i=0; i<data.marks_obtained.length; i++) {
+      this.ELEMENT_DATA.push({
+        position: i+1,
+        subject: Object.keys(data.marks_obtained[i])[0],
+        marks: Object.values(data.marks_obtained[i])[0],
+        total: Object.values(data.total_marks[i])[0]
+      })
+    }
+    
+    this.dataSource = this.ELEMENT_DATA;
+    
   }
 
+
+  switchSemesterResult(e: any) {
+    this._studentService.getAcademicsSemData(this.selectedSemester).subscribe((data: any) => {
+      if(!data.msg)  
+        this.prepareTableDataFormat(data);
+      else
+        this.dataSource = []        
+    })
+  }
 
 
 }

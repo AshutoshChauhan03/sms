@@ -145,7 +145,17 @@ router.post("/academics/:id", verifyTokenPermissions, async (req, res) => {
 });
 router.get("/academics/:id", verifyToken, async (req, res) => {
   const id = req.params.id;
-  const academic = await AcademicsModel.findOne({ student_Id: id });
+  const academic = await AcademicsModel.find({ student_Id: id });
+  if (academic) {
+    return res.status(200).send(academic);
+  }
+  return res.status(200).send({ msg: "No data Found !" });
+});
+router.get("/academics/:id/:sem", verifyToken, async (req, res) => {
+  const id = req.params.id;
+  const sem = req.params.sem;
+
+  const academic = await AcademicsModel.findOne({ student_Id: id, semester: sem });
   if (academic) {
     return res.status(200).send(academic);
   }
